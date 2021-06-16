@@ -3,10 +3,9 @@ defmodule Bagheera.LinksTest do
   import Bagheera.Factory
 
   alias Bagheera.Links
+  alias Bagheera.Links.{Hit, Link}
 
   describe "links" do
-    alias Bagheera.Links.Link
-
     @valid_attrs %{url: "http://zipbooks.com"}
     @update_attrs %{url: "https://zipbooks.com"}
     @invalid_attrs %{url: nil}
@@ -62,8 +61,6 @@ defmodule Bagheera.LinksTest do
   end
 
   describe "hits" do
-    alias Bagheera.Links.{Hit, Link}
-
     test "create_hit/1 records a link view hit" do
       link = insert(:link)
 

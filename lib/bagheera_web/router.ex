@@ -15,6 +15,10 @@ defmodule BagheeraWeb.Router do
 
   forward "/graphql", Absinthe.Plug, schema: BagheeraWeb.Schema
 
+  if Mix.env() in [:dev, :test] do
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: BagheeraWeb.Schema
+  end
+
   scope "/", BagheeraWeb do
     pipe_through :api
 
