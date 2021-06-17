@@ -2,7 +2,7 @@ defmodule Bagheera.ReleaseTasks do
   @moduledoc """
   Provides the ability run mix tasks on release after build
   """
-  @repos Application.get_env(:bagheera, :ecto_repos, [])
+  @repos Application.compile_env(:bagheera, :ecto_repos, [])
 
   def migrate do
     start_services()
