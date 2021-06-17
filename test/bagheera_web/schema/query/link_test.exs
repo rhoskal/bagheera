@@ -18,7 +18,7 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
     test "should return an error for an unknown link" do
       response =
         build_conn()
-        |> get("/graphql", query: @query, variables: %{id: opaque_id("123")})
+        |> get("/api", query: @query, variables: %{id: opaque_id("123")})
 
       assert %{
                "data" => %{
@@ -38,7 +38,7 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
 
       response =
         build_conn()
-        |> get("/graphql", query: @query, variables: %{id: opaque_id(link.id)})
+        |> get("/api", query: @query, variables: %{id: opaque_id(link.id)})
 
       expected = %{
         "data" => %{
@@ -75,7 +75,7 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
     test "should return an empty list" do
       response =
         build_conn()
-        |> get("/graphql", query: @query)
+        |> get("/api", query: @query)
 
       expected = %{
         "data" => %{
@@ -96,7 +96,7 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
 
       response =
         build_conn()
-        |> get("/graphql", query: @query)
+        |> get("/api", query: @query)
 
       expected = %{
         "data" => %{

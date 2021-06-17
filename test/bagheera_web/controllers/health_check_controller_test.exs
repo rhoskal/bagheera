@@ -2,7 +2,7 @@ defmodule BagheeraWeb.HealthCheckControllerTest do
   use BagheeraWeb.ConnCase
 
   test "GET /health", %{conn: conn} do
-    response = get(conn, "/health")
+    response = get(conn, Routes.health_check_path(conn, :index))
 
     expected = %{
       "status" => "pass",

@@ -18,7 +18,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
     test "should return an error when no url is provided" do
       response =
         build_conn()
-        |> post("/graphql", query: @query, variables: %{link: %{"url" => ""}})
+        |> post("/api", query: @query, variables: %{link: %{"url" => ""}})
 
       assert %{
                "data" => %{
@@ -36,7 +36,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
     test "should create and return a link" do
       response =
         build_conn()
-        |> post("/graphql", query: @query, variables: %{link: %{url: "https://abc.com"}})
+        |> post("/api", query: @query, variables: %{link: %{url: "https://abc.com"}})
 
       assert %{
                "data" => %{
@@ -62,7 +62,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
     test "should return an error for non-existent link" do
       response =
         build_conn()
-        |> post("/graphql",
+        |> post("/api",
           query: @query,
           variables: %{link: %{id: opaque_id("99"), url: "http://abc.com"}}
         )
@@ -85,7 +85,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
 
       response =
         build_conn()
-        |> post("/graphql",
+        |> post("/api",
           query: @query,
           variables: %{link: %{id: opaque_id(orig_link.id), url: ""}}
         )
@@ -108,7 +108,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
 
       response =
         build_conn()
-        |> post("/graphql",
+        |> post("/api",
           query: @query,
           variables: %{link: %{id: opaque_id(orig_link.id), url: "http://www.bonzai.com"}}
         )
@@ -139,7 +139,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
     test "should return an error for non-existent link" do
       response =
         build_conn()
-        |> post("/graphql", query: @query, variables: %{id: opaque_id("99")})
+        |> post("/api", query: @query, variables: %{id: opaque_id("99")})
 
       assert %{
                "data" => %{
@@ -158,7 +158,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
 
       response =
         build_conn()
-        |> post("/graphql", query: @query, variables: %{id: opaque_id(link.id)})
+        |> post("/api", query: @query, variables: %{id: opaque_id(link.id)})
 
       expected = %{
         "data" => %{

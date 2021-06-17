@@ -6,14 +6,11 @@ defmodule Bagheera.Links.Link do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Bagheera.Links.Hit
   alias Bagheera.StringGenerator
 
   schema "links" do
     field :hash, :string
     field :url, :string
-
-    has_many :hits, Hit
 
     timestamps()
   end
@@ -23,6 +20,7 @@ defmodule Bagheera.Links.Link do
     link
     |> cast(attrs, [:url])
     |> validate_required([:url])
+    |> update_change(:url, &String.downcase/1)
     |> generate_hash()
     |> unique_constraint([:hash])
   end
@@ -32,6 +30,7 @@ defmodule Bagheera.Links.Link do
     link
     |> cast(attrs, [:url])
     |> validate_required([:url])
+    |> update_change(:url, &String.downcase/1)
   end
 
   defp generate_hash(changeset) do

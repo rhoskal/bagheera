@@ -13,18 +13,17 @@ defmodule BagheeraWeb.Router do
     plug :accepts, ["json"]
   end
 
-  forward "/graphql", Absinthe.Plug, schema: BagheeraWeb.Schema
-
   if Mix.env() in [:dev, :test] do
     forward "/graphiql", Absinthe.Plug.GraphiQL, schema: BagheeraWeb.Schema
   end
 
-  scope "/", BagheeraWeb do
+  scope "/api", BagheeraWeb do
     pipe_through :api
 
     get "/health", HealthCheckController, :index
-    get "/:hash", LinkHitController, :show
   end
+
+  forward "/api", Absinthe.Plug, schema: BagheeraWeb.Schema
 
   # Enables LiveDashboard only for development
   if Mix.env() in [:dev, :test] do
@@ -32,7 +31,14 @@ defmodule BagheeraWeb.Router do
 
     scope "/" do
       pipe_through :browser
+
       live_dashboard "/dashboard", metrics: BagheeraWeb.Telemetry
     end
+  end
+
+  scope "/", BagheeraWeb do
+    pipe_through :browser
+
+    get "/:hash", LinkHitController, :show
   end
 end
