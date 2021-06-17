@@ -11,10 +11,11 @@ defmodule BagheeraWeb.Resolvers.Links do
          hits <- Links.link_hit_count(link.id) do
       {:ok, Map.put(link, :hits, hits)}
     else
-      _ -> {
-        :error,
-        message: "Fetch failed", details: "Link does not exist"
-      }
+      _ ->
+        {
+          :error,
+          message: "Fetch failed", details: "Link does not exist"
+        }
     end
   end
 
