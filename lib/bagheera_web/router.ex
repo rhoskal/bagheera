@@ -25,6 +25,12 @@ defmodule BagheeraWeb.Router do
 
   forward "/api", Absinthe.Plug, schema: BagheeraWeb.Schema
 
+  scope "/", BagheeraWeb do
+    pipe_through :browser
+
+    get "/:hash", LinkHitController, :show
+  end
+
   # Enables LiveDashboard only for development
   if Mix.env() in [:dev, :test] do
     import Phoenix.LiveDashboard.Router
@@ -34,11 +40,5 @@ defmodule BagheeraWeb.Router do
 
       live_dashboard "/dashboard", metrics: BagheeraWeb.Telemetry
     end
-  end
-
-  scope "/", BagheeraWeb do
-    pipe_through :browser
-
-    get "/:hash", LinkHitController, :show
   end
 end
