@@ -5,7 +5,6 @@ defmodule Bagheera.Links do
 
   import Ecto.Query, warn: false
   alias Bagheera.Repo
-
   alias Bagheera.Links.{Hit, Link}
 
   @doc """
@@ -155,5 +154,23 @@ defmodule Bagheera.Links do
         order_by: [desc: :inserted_at]
 
     Repo.all(query)
+  end
+
+  @doc """
+  Returns hit count for a given link.
+
+  ## Examples
+
+      iex> link_hit_count(1)
+      0
+
+  """
+  def link_hit_count(id) do
+    query =
+      from h in Hit,
+        where: h.link_id == ^id,
+        select: count(h.id)
+
+    Repo.one(query)
   end
 end

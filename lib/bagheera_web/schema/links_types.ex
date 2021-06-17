@@ -14,8 +14,8 @@ defmodule BagheeraWeb.Schema.LinksTypes do
     @desc "Destination URL"
     field :url, :string
 
-    # @desc "All instances that a link has been viewed"
-    # field :hits, :integer
+    @desc "All instances that a link has been viewed"
+    field :hits, :integer
   end
 
   connection(node_type: :link)

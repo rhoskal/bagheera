@@ -7,15 +7,14 @@ defmodule BagheeraWeb.Resolvers.Links do
   alias Bagheera.Links
 
   def get_link(_parent, %{id: id}, _resolution) do
-    case Links.get_link(id) do
-      nil ->
-        {
-          :error,
-          message: "Fetch failed", details: "Link does not exist"
-        }
-
-      success ->
-        {:ok, success}
+    with %Links.Link{} = link <- Links.get_link(id),
+         hits <- Links.link_hit_count(link.id) do
+      {:ok, Map.put(link, :hits, hits)}
+    else
+      _ -> {
+        :error,
+        message: "Fetch failed", details: "Link does not exist"
+      }
     end
   end
 
