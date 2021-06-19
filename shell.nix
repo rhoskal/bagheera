@@ -3,7 +3,7 @@
 with pkgs;
 
 let
-  inherit (lib) optional optionals;
+  inherit (lib) optionals;
 
   basePackages = [
     beam.packages.erlangR24.elixir_1_12
@@ -11,7 +11,7 @@ let
   ];
 
   inputs = basePackages
-    ++ optional stdenv.isLinux inotify-tools
+    ++ optionals stdenv.isLinux inotify-tools
     ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       # file_system used by phoenix_live_reload
       CoreFoundation
