@@ -30,7 +30,7 @@ defmodule BagheeraWeb.Schema do
     end
 
     @desc "List available links"
-    connection field :links, node_type: :link do
+    connection field(:links, node_type: :link) do
       resolve(&Resolvers.Links.all_links/3)
     end
   end

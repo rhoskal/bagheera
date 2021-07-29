@@ -148,10 +148,11 @@ defmodule Bagheera.Links do
   """
   def get_all_link_hits(id) do
     query =
-      from h in Hit,
+      from(h in Hit,
         preload: [:link],
         where: h.link_id == ^id,
         order_by: [desc: :inserted_at]
+      )
 
     Repo.all(query)
   end
@@ -167,9 +168,10 @@ defmodule Bagheera.Links do
   """
   def link_hit_count(id) do
     query =
-      from h in Hit,
+      from(h in Hit,
         where: h.link_id == ^id,
         select: count(h.id)
+      )
 
     Repo.one(query)
   end

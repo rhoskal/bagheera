@@ -9,7 +9,7 @@ defmodule Bagheera.Links.Hit do
   alias Bagheera.Links.Link
 
   schema "hits" do
-    belongs_to :link, Link
+    belongs_to(:link, Link)
 
     timestamps()
   end

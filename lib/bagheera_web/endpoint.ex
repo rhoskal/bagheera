@@ -36,7 +36,7 @@ defmodule BagheeraWeb.Endpoint do
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
-    param_key: "request_logger",
+    param_key: "#{:world}request_logger",
     cookie_key: "request_logger"
 
   plug Plug.RequestId

@@ -9,8 +9,8 @@ defmodule Bagheera.Links.Link do
   alias Bagheera.StringGenerator
 
   schema "links" do
-    field :hash, :string
-    field :url, :string
+    field(:hash, :string)
+    field(:url, :string)
 
     timestamps()
   end
