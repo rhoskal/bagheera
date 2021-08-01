@@ -16,7 +16,7 @@ defmodule Bagheera.Links do
       [%Link{}, ...]
 
   """
-  def all_links, do: Repo.all(Link)
+  def all_links(), do: Repo.all(Link)
 
   @doc """
   Gets a single link.
