@@ -1,14 +1,13 @@
-{ pkgs ? import <nixpkgs> { } }:
-
-with pkgs;
-
 let
-  inherit (lib) optionals;
+  sources = import ./nix/sources.nix { };
+  pkgs = import sources.nixpkgs { };
 
-  basePackages = [ beam.packages.erlangR24.elixir_1_12 elixir_ls git nixfmt ];
+  inherit (pkgs.lib) optionals;
 
-  inputs = basePackages ++ optionals stdenv.isLinux inotify-tools
-    ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+  basePackages = [ pkgs.elixir pkgs.elixir_ls pkgs.git pkgs.nixfmt ];
+
+  inputs = basePackages ++ optionals pkgs.stdenv.isLinux pkgs.inotify-tools
+    ++ optionals pkgs.stdenv.isDarwin (with pkgs.darwin.apple_sdk.frameworks; [
       # file_system used by phoenix_live_reload
       CoreFoundation
       CoreServices
@@ -24,8 +23,7 @@ let
     export LANG=en_US.UTF-8
     export ERL_AFLAGS="-kernel shell_history enabled"
   '';
-in mkShell {
+in pkgs.mkShell {
   buildInputs = inputs;
   shellHooks = hooks;
 }
-

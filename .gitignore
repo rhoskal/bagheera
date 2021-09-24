@@ -27,6 +27,11 @@ bagheera-*.tar
 # this depending on your deployment strategy.
 /priv/static/
 
+# Editors
 .idea
+.nova/Configuration.json
 
 .nix*
+
+# language server files
+.elixir_ls
