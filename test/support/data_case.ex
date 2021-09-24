@@ -16,6 +16,8 @@ defmodule Bagheera.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias Bagheera.Repo
@@ -28,10 +30,10 @@ defmodule Bagheera.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bagheera.Repo)
+    :ok = Sandbox.checkout(Bagheera.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Bagheera.Repo, {:shared, self()})
+      Sandbox.mode(Bagheera.Repo, {:shared, self()})
     end
 
     :ok
