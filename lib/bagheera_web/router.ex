@@ -17,13 +17,13 @@ defmodule BagheeraWeb.Router do
     forward "/graphiql", Absinthe.Plug.GraphiQL, schema: BagheeraWeb.Schema
   end
 
-  scope "/api", BagheeraWeb do
+  scope "/graphql", BagheeraWeb do
     pipe_through :api
 
     get "/health", HealthCheckController, :index
   end
 
-  forward "/api", Absinthe.Plug, schema: BagheeraWeb.Schema
+  forward "/graphql", Absinthe.Plug, schema: BagheeraWeb.Schema
 
   scope "/", BagheeraWeb do
     pipe_through :browser
