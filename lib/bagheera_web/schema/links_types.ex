@@ -9,12 +9,12 @@ defmodule BagheeraWeb.Schema.LinksTypes do
   @desc "A shortened url"
   node object(:link) do
     @desc "Auto-generated hash for the shortened URL"
-    field(:hash, :string)
+    field(:hash, non_null(:string))
 
     @desc "Destination URL"
-    field(:url, :string)
+    field(:url, non_null(:string))
 
-    @desc "All instances that a link has been viewed"
+    @desc "Number of times a link has been viewed"
     field(:hits, :integer)
   end
 
