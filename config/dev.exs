@@ -66,3 +66,8 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :cors_plug,
+  origin: ["https://localhost:3000"],
+  mag_age: 86400,
+  methods: ["POST"]
