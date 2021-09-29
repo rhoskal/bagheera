@@ -1,6 +1,6 @@
-defmodule BagheeraWeb.Schema.LinksTypes do
+defmodule BagheeraWeb.Schema.Type.LinkTypes do
   @moduledoc """
-  Provides GraphQL types for Links
+  Provides GraphQL types for Link
   """
 
   use Absinthe.Schema.Notation

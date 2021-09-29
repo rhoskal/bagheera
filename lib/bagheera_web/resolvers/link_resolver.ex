@@ -1,4 +1,4 @@
-defmodule BagheeraWeb.Resolvers.Links do
+defmodule BagheeraWeb.Resolvers.LinkResolver do
   @moduledoc """
   Provides resolver functions for Link queries & mutations
   """
