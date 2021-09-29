@@ -8,7 +8,7 @@ defmodule BagheeraWeb.Schema do
 
   alias BagheeraWeb.Resolvers
 
-  import_types(__MODULE__.LinksTypes)
+  import_types(__MODULE__.Type.LinkTypes)
 
   node interface do
     resolve_type(fn
@@ -26,12 +26,12 @@ defmodule BagheeraWeb.Schema do
       arg(:id, non_null(:id))
 
       middleware(Absinthe.Relay.Node.ParseIDs, id: :link)
-      resolve(&Resolvers.Links.get_link/3)
+      resolve(&Resolvers.LinkResolver.get_link/3)
     end
 
     @desc "List available links"
     connection field(:links, node_type: :link) do
-      resolve(&Resolvers.Links.all_links/3)
+      resolve(&Resolvers.LinkResolver.all_links/3)
     end
   end
 
@@ -40,7 +40,7 @@ defmodule BagheeraWeb.Schema do
     field :create_link, type: :link do
       arg(:input, non_null(:create_link_input))
 
-      resolve(&Resolvers.Links.create_link/3)
+      resolve(&Resolvers.LinkResolver.create_link/3)
     end
 
     @desc "Update a link"
@@ -48,7 +48,7 @@ defmodule BagheeraWeb.Schema do
       arg(:input, non_null(:update_link_input))
 
       middleware(Absinthe.Relay.Node.ParseIDs, input: [id: :link])
-      resolve(&Resolvers.Links.update_link/3)
+      resolve(&Resolvers.LinkResolver.update_link/3)
     end
 
     @desc "Delete a link"
@@ -56,7 +56,7 @@ defmodule BagheeraWeb.Schema do
       arg(:id, non_null(:id))
 
       middleware(Absinthe.Relay.Node.ParseIDs, id: :link)
-      resolve(&Resolvers.Links.delete_link/3)
+      resolve(&Resolvers.LinkResolver.delete_link/3)
     end
   end
 end
