@@ -5,8 +5,7 @@ defmodule Bagheera.Links.Link do
 
   use Ecto.Schema
   import Ecto.Changeset
-
-  alias Bagheera.StringGenerator
+  import Bagheera.StringGenerator
 
   schema "links" do
     field(:hash, :string)
@@ -34,6 +33,6 @@ defmodule Bagheera.Links.Link do
   end
 
   defp generate_hash(changeset) do
-    put_change(changeset, :hash, StringGenerator.unique_string())
+    put_change(changeset, :hash, unique_string())
   end
 end

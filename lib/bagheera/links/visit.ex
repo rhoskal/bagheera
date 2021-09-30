@@ -1,6 +1,6 @@
-defmodule Bagheera.Links.Hit do
+defmodule Bagheera.Links.Visit do
   @moduledoc """
-  Hit schema
+  Visit schema
   """
 
   use Ecto.Schema
@@ -8,15 +8,15 @@ defmodule Bagheera.Links.Hit do
 
   alias Bagheera.Links.Link
 
-  schema "hits" do
+  schema "visits" do
     belongs_to(:link, Link)
 
     timestamps()
   end
 
   @doc false
-  def changeset(hit, attrs) do
-    hit
+  def changeset(visit, attrs) do
+    visit
     |> cast(attrs, [:link_id])
     |> foreign_key_constraint(:link_id)
   end

@@ -8,8 +8,8 @@ defmodule BagheeraWeb.Resolvers.LinkResolver do
 
   def get_link(_parent, %{id: id}, _resolution) do
     with %Links.Link{} = link <- Links.get_link(id),
-         hits <- Links.link_hit_count(link.id) do
-      {:ok, Map.put(link, :hits, hits)}
+         visits <- Links.link_visit_count(link.id) do
+      {:ok, Map.put(link, :visits, visits)}
     else
       _ ->
         {

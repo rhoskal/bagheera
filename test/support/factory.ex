@@ -6,7 +6,7 @@ defmodule Bagheera.Factory do
   use ExMachina.Ecto, repo: Bagheera.Repo
   import Bagheera.StringGenerator
 
-  alias Bagheera.Links.{Hit, Link}
+  alias Bagheera.Links.{Link, Visit}
 
   def link_factory(attrs) do
     link = %Link{
@@ -17,10 +17,10 @@ defmodule Bagheera.Factory do
     merge_attributes(link, attrs)
   end
 
-  def hit_factory(attrs) do
+  def visit_factory(attrs) do
     %{link: link} = attrs
 
-    %Hit{
+    %Visit{
       link_id: Map.get(link, :id)
     }
   end

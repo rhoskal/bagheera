@@ -1,8 +1,8 @@
-defmodule Bagheera.Repo.Migrations.CreateHits do
+defmodule Bagheera.Repo.Migrations.CreateVisits do
   use Ecto.Migration
 
   def change do
-    create table(:hits) do
+    create table(:visits) do
       add :link_id, references(:links, on_delete: :delete_all), null: false
 
       timestamps()

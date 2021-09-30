@@ -5,7 +5,7 @@ defmodule Bagheera.Links do
 
   import Ecto.Query, warn: false
   alias Bagheera.Repo
-  alias Bagheera.Links.{Hit, Link}
+  alias Bagheera.Links.{Link, Visit}
 
   @doc """
   Returns the list of links.
@@ -119,38 +119,38 @@ defmodule Bagheera.Links do
   def change_link(%Link{} = link), do: Link.changeset(link, %{})
 
   @doc """
-  Creates a view hit for a given link.
+  Creates a view visit for a given link.
 
   ## Examples
 
-      iex> create_hit(link)
-      {:ok, %Hit{}}
+      iex> create_visit(link)
+      {:ok, %Visit{}}
 
-      iex> create_hit(link)
+      iex> create_visit(link)
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_hit(%Link{} = link, attrs \\ %{}) do
-    %Hit{}
-    |> Hit.changeset(attrs)
+  def create_visit(%Link{} = link, attrs \\ %{}) do
+    %Visit{}
+    |> Visit.changeset(attrs)
     |> Ecto.Changeset.put_change(:link_id, link.id)
     |> Repo.insert()
   end
 
   @doc """
-  Returns a list of hits for a given link.
+  Returns a list of visits for a given link.
 
   ## Examples
 
-      iex> get_all_link_hits()
+      iex> get_all_link_visits()
       [%Link{}, ...]
 
   """
-  def get_all_link_hits(id) do
+  def get_all_link_visits(id) do
     query =
-      from(h in Hit,
+      from(v in Visit,
         preload: [:link],
-        where: h.link_id == ^id,
+        where: v.link_id == ^id,
         order_by: [desc: :inserted_at]
       )
 
@@ -158,19 +158,19 @@ defmodule Bagheera.Links do
   end
 
   @doc """
-  Returns hit count for a given link.
+  Returns visit count for a given link.
 
   ## Examples
 
-      iex> link_hit_count(1)
+      iex> link_visit_count(1)
       0
 
   """
-  def link_hit_count(id) do
+  def link_visit_count(id) do
     query =
-      from(h in Hit,
-        where: h.link_id == ^id,
-        select: count(h.id)
+      from(v in Visit,
+        where: v.link_id == ^id,
+        select: count(v.id)
       )
 
     Repo.one(query)
