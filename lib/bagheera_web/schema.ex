@@ -8,7 +8,7 @@ defmodule BagheeraWeb.Schema do
 
   alias BagheeraWeb.Resolvers
 
-  import_types(__MODULE__.Type.LinkTypes)
+  import_types(__MODULE__.LinkTypes)
 
   node interface do
     resolve_type(fn
@@ -23,7 +23,7 @@ defmodule BagheeraWeb.Schema do
   query do
     @desc "Get details about a link"
     field :link, type: :link do
-      arg(:id, non_null(:id))
+      arg(:id, non_null(:link_id))
 
       middleware(Absinthe.Relay.Node.ParseIDs, id: :link)
       resolve(&Resolvers.LinkResolver.get_link/3)
@@ -53,7 +53,7 @@ defmodule BagheeraWeb.Schema do
 
     @desc "Delete a link"
     field :delete_link, type: :link do
-      arg(:id, non_null(:id))
+      arg(:id, non_null(:link_id))
 
       middleware(Absinthe.Relay.Node.ParseIDs, id: :link)
       resolve(&Resolvers.LinkResolver.delete_link/3)
