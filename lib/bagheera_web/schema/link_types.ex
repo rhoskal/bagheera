@@ -25,7 +25,7 @@ defmodule BagheeraWeb.Schema.LinkTypes do
     field(:hash, non_null(:string))
 
     @desc "Number of times a link has been viewed"
-    field(:hits, :integer)
+    field(:visits, :integer)
 
     @desc "The opaque ID of the link object"
     field(:id, non_null(:link_id))

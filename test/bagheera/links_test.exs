@@ -3,7 +3,7 @@ defmodule Bagheera.LinksTest do
   import Bagheera.Factory
 
   alias Bagheera.Links
-  alias Bagheera.Links.{Hit, Link}
+  alias Bagheera.Links.{Link, Visit}
 
   describe "links" do
     @valid_attrs %{url: "http://zipbooks.com"}
@@ -60,32 +60,32 @@ defmodule Bagheera.LinksTest do
     end
   end
 
-  describe "hits" do
-    test "create_hit/1 records a link view hit" do
+  describe "visits" do
+    test "create_visit/1 records a link view visit" do
       link = insert(:link)
 
-      assert {:ok, %Hit{}} = Links.create_hit(link)
+      assert {:ok, %Visit{}} = Links.create_visit(link)
     end
 
-    test "create_hit/1 fails because of foreign key constraint" do
+    test "create_visit/1 fails because of foreign key constraint" do
       link = %Link{id: 42, url: "http://www.abc123.com"}
 
-      {:error, %Ecto.Changeset{} = changeset} = Links.create_hit(link)
+      {:error, %Ecto.Changeset{} = changeset} = Links.create_visit(link)
 
       assert %{
                errors: [
                  link_id:
                    {"does not exist",
-                    [constraint: :foreign, constraint_name: "hits_link_id_fkey"]}
+                    [constraint: :foreign, constraint_name: "visits_link_id_fkey"]}
                ]
              } = changeset
     end
 
-    test "get_all_link_hits/1 returns all hits for a given link" do
+    test "get_all_link_visits/1 returns all visits for a given link" do
       link = insert(:link)
-      Links.create_hit(link)
+      Links.create_visit(link)
 
-      assert [%Hit{}] = Links.get_all_link_hits(link.id)
+      assert [%Visit{}] = Links.get_all_link_visits(link.id)
     end
   end
 end

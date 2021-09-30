@@ -28,7 +28,7 @@ defmodule BagheeraWeb.Router do
   scope "/", BagheeraWeb do
     pipe_through :browser
 
-    get "/:hash", LinkHitController, :show
+    get "/:hash", LinkVisitController, :show
   end
 
   # Enables LiveDashboard only for development

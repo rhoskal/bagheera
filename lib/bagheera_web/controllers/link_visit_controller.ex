@@ -1,4 +1,4 @@
-defmodule BagheeraWeb.LinkHitController do
+defmodule BagheeraWeb.LinkVisitController do
   use BagheeraWeb, :controller
 
   alias Bagheera.Links
@@ -6,7 +6,7 @@ defmodule BagheeraWeb.LinkHitController do
   def show(conn, %{"hash" => hash}) do
     baggy_link = Links.get_link_by!(hash: hash)
 
-    Links.create_hit(baggy_link)
+    Links.create_visit(baggy_link)
 
     conn
     |> put_status(:moved_permanently)
