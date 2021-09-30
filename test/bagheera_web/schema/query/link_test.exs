@@ -6,7 +6,7 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
     defp opaque_id(id), do: Base.encode64("Link:#{id}")
 
     @query """
-    query Link($id: ID!) {
+    query Link($id: LinkId!) {
       link(id: $id) {
         id
         hash

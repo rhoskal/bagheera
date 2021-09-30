@@ -129,7 +129,7 @@ defmodule BagheeraWeb.Schema.Mutation.LinkTest do
 
   describe "delete_link" do
     @query """
-    mutation DeleteLink($id: ID!) {
+    mutation DeleteLink($id: LinkId!) {
       deleteLink(id: $id) {
         id
       }
