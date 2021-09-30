@@ -35,3 +35,6 @@ bagheera-*.tar
 
 # language server files
 .elixir_ls
+
+# secrets
+config/*.secret.exs
