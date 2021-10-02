@@ -37,10 +37,11 @@ defmodule BagheeraWeb.Schema.LinkTypes do
   connection(:link, node_type: non_null(:link), non_null: true) do
     @desc "A count of the total number of objects in this connection, ignoring pagination."
     field :total_count, non_null(:integer) do
-      resolve fn _, %{source: conn} ->
+      resolve(fn _, %{source: conn} ->
         {:ok, length(conn.edges)}
-      end
+      end)
     end
+
     edge do
     end
   end
