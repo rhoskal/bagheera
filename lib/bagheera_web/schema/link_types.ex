@@ -34,7 +34,16 @@ defmodule BagheeraWeb.Schema.LinkTypes do
     field(:url, non_null(:string))
   end
 
-  connection(node_type: :link)
+  connection(:link, node_type: :link) do
+    @desc "A count of the total number of objects in this connection, ignoring pagination."
+    field :total_count, non_null(:integer) do
+      resolve fn _, %{source: conn} ->
+        {:ok, length(conn.edges)}
+      end
+    end
+    edge do
+    end
+  end
 
   @desc "Input parameters for a new link"
   input_object(:create_link_input) do
