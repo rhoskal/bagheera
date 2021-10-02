@@ -6,6 +6,8 @@ defmodule BagheeraWeb.Schema.LinkTypes do
   use Absinthe.Schema.Notation
   use Absinthe.Relay.Schema.Notation, :modern
 
+  import Absinthe.Relay.Node, only: [to_global_id: 2]
+
   scalar :link_id do
     description("""
     The `LinkId` custom scalar type represents a unique node identifier. The LinkId appears
@@ -13,7 +15,7 @@ defmodule BagheeraWeb.Schema.LinkTypes do
     """)
 
     parse(&parse_string/1)
-    serialize(fn id -> Base.encode64("Link:#{id}") end)
+    serialize(&to_global_id("Link", Kernel.to_string(&1)))
   end
 
   defp parse_string(%Absinthe.Blueprint.Input.String{value: value}), do: {:ok, value}
