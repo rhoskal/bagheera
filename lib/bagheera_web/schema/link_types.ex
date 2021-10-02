@@ -43,6 +43,8 @@ defmodule BagheeraWeb.Schema.LinkTypes do
     end
 
     edge do
+      field :cursor, non_null(:string) do
+      end
     end
   end
 
