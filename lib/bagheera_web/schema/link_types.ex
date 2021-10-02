@@ -5,6 +5,7 @@ defmodule BagheeraWeb.Schema.LinkTypes do
 
   use Absinthe.Schema.Notation
   use Absinthe.Relay.Schema.Notation, :modern
+  alias Bagheera.Links
 
   import Absinthe.Relay.Node, only: [to_global_id: 2]
 
@@ -36,16 +37,32 @@ defmodule BagheeraWeb.Schema.LinkTypes do
     field(:url, non_null(:string))
   end
 
-  connection(:link, node_type: non_null(:link), non_null: true) do
-    @desc "A count of the total number of objects in this connection, ignoring pagination."
-    field :total_count, non_null(:integer) do
-      resolve(fn _, %{source: conn} ->
-        {:ok, length(conn.edges)}
+  @desc "A connection to a list of items"
+  connection(:link, node_type: :link) do
+    @desc """
+    A count of the total number of objects in this connection, ignoring pagination. This allows a 
+    client to fetch the first five objects by passing "5" as the argument to "first", then fetch 
+    the total count so it could display "5 of 83", for example.
+    """
+    field :total_count, :integer do
+      resolve(fn _pagination_args, _conn ->
+        count = Links.total_count_of_links()
+        {:ok, count}
       end)
     end
 
+    @desc "Information to aid in pagination"
+    field :page_info, non_null(:page_info) do
+    end
+
+    @desc "An edge in a connection"
     edge do
+      @desc "A cursor for use in pagination"
       field :cursor, non_null(:string) do
+      end
+
+      @desc "The item at the end of the edge"
+      field :node, :link do
       end
     end
   end

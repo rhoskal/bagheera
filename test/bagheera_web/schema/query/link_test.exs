@@ -1,10 +1,10 @@
 defmodule BagheeraWeb.Schema.Query.LinkTest do
   use BagheeraWeb.ConnCase, async: true
+
+  import Absinthe.Relay.Node, only: [to_global_id: 2]
   import Bagheera.Factory
 
   describe "link" do
-    defp opaque_id(id), do: Base.encode64("Link:#{id}")
-
     @query """
     query Link($id: LinkId!) {
       link(id: $id) {
@@ -18,7 +18,7 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
     test "should return an error for an unknown link" do
       response =
         build_conn()
-        |> get("/graphql", query: @query, variables: %{id: opaque_id("123")})
+        |> get("/graphql", query: @query, variables: %{id: to_global_id("Link", 123)})
 
       assert %{
                "data" => %{
@@ -38,12 +38,12 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
 
       response =
         build_conn()
-        |> get("/graphql", query: @query, variables: %{id: opaque_id(link.id)})
+        |> get("/graphql", query: @query, variables: %{id: to_global_id("Link", link.id)})
 
       expected = %{
         "data" => %{
           "link" => %{
-            "id" => opaque_id(link.id),
+            "id" => to_global_id("Link", link.id),
             "hash" => link.hash,
             "url" => link.url
           }
@@ -58,7 +58,9 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
     @query """
     query Links {
       links(first: 2) {
+        totalCount
         edges {
+          cursor
           node {
             id
             hash
@@ -67,6 +69,9 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
         },
         pageInfo {
           hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
         }
       }
     }
@@ -82,8 +87,12 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
           "links" => %{
             "edges" => [],
             "pageInfo" => %{
-              "hasNextPage" => false
-            }
+              "endCursor" => nil,
+              "hasNextPage" => false,
+              "hasPreviousPage" => false,
+              "startCursor" => nil
+            },
+            "totalCount" => 0
           }
         }
       }
@@ -103,23 +112,29 @@ defmodule BagheeraWeb.Schema.Query.LinkTest do
           "links" => %{
             "edges" => [
               %{
+                "cursor" => to_global_id("arrayconnection", 0),
                 "node" => %{
-                  "id" => opaque_id(link1.id),
+                  "id" => to_global_id("Link", link1.id),
                   "hash" => link1.hash,
                   "url" => link1.url
                 }
               },
               %{
+                "cursor" => to_global_id("arrayconnection", 1),
                 "node" => %{
-                  "id" => opaque_id(link2.id),
+                  "id" => to_global_id("Link", link2.id),
                   "hash" => link2.hash,
                   "url" => link2.url
                 }
               }
             ],
             "pageInfo" => %{
-              "hasNextPage" => true
-            }
+              "endCursor" => to_global_id("arrayconnection", 1),
+              "hasNextPage" => true,
+              "hasPreviousPage" => false,
+              "startCursor" => to_global_id("arrayconnection", 0)
+            },
+            "totalCount" => 3
           }
         }
       }

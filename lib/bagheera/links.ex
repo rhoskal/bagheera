@@ -175,4 +175,22 @@ defmodule Bagheera.Links do
 
     Repo.one(query)
   end
+
+  @doc """
+  Returns the total number of links in the database.
+
+  ## Examples
+
+      iex> total_count_of_links()
+      42
+
+  """
+  def total_count_of_links do
+    query =
+      from(l in Link,
+        select: count(l.id)
+      )
+
+    Repo.one(query)
+  end
 end

@@ -33,6 +33,20 @@ defmodule BagheeraWeb.Schema do
     connection field(:links, node_type: :link) do
       resolve(&Resolvers.LinkResolver.all_links/3)
     end
+
+    @desc "Fetches an object given an ID"
+    node field do
+      resolve(fn
+        %{type: :link, id: id}, _ ->
+          case Bagheera.Links.get_link(id) do
+            nil -> {:error, nil}
+            link -> {:ok, link}
+          end
+
+        _, _ ->
+          nil
+      end)
+    end
   end
 
   mutation do

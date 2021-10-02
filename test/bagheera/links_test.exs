@@ -16,6 +16,12 @@ defmodule Bagheera.LinksTest do
       assert Links.all_links() == links
     end
 
+    test "total_count_of_links/0" do
+      links = insert_list(3, :link)
+
+      assert Links.total_count_of_links() == length(links)
+    end
+
     test "get_link/1 returns the link with given hash" do
       link = insert(:link)
 
