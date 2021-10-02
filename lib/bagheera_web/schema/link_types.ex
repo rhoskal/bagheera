@@ -15,7 +15,7 @@ defmodule BagheeraWeb.Schema.LinkTypes do
     """)
 
     parse(&parse_string/1)
-    serialize(&to_global_id("Link", Kernel.to_string(&1)))
+    serialize(&to_global_id("Link", &1))
   end
 
   defp parse_string(%Absinthe.Blueprint.Input.String{value: value}), do: {:ok, value}
