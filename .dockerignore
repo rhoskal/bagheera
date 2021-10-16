@@ -1,0 +1,10 @@
+_build/
+nix/
+
+# Editors
+.idea
+.nova
+.nix*
+
+# language server files
+.elixir_ls
