@@ -32,7 +32,7 @@ defmodule BagheeraWeb.Router do
     scope "/" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: BagheeraWeb.Telemetry
+      live_dashboard "/dashboard", metrics: BagheeraWeb.Telemetry, ecto_repos: [Bagheera.Repo]
     end
   end
   

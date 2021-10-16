@@ -58,7 +58,8 @@ defmodule Bagheera.MixProject do
       {:absinthe_relay, "~> 1.5.1"},
       {:ex_machina, "~> 2.7", only: :test},
       {:credo, "~> 1.5.6", only: [:dev, :test], runtime: false},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:ecto_psql_extras, "~> 0.6"},
     ]
   end
 
