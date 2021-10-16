@@ -1,5 +1,7 @@
 # Bagheera
 
+![Screen Shot 2021-10-16 at 4 01 58 PM](https://user-images.githubusercontent.com/9221098/137600784-a1b1a5c7-e0b5-4f0b-b807-1f2b78a6ce05.png)
+
 To start your Phoenix server:
 
 - Install dependencies with `mix deps.get`
@@ -25,3 +27,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 - https://egghead.io/lessons/graphql-when-and-why-to-use-nullable-vs-non-nullable-fields-in-graphql (see transcription section)
 - https://www.apollographql.com/blog/graphql/basics/using-nullability-in-graphql/
 - https://medium.com/@calebmer/when-to-use-graphql-non-null-fields-4059337f6fc8
+
