@@ -4,7 +4,7 @@ let
 
   inherit (pkgs.lib) optionals;
 
-  basePackages = [ pkgs.elixir pkgs.elixir_ls pkgs.git pkgs.nixfmt ];
+  basePackages = [ pkgs.elixir pkgs.git pkgs.nixfmt ];
 
   inputs = basePackages ++ optionals pkgs.stdenv.isLinux pkgs.inotify-tools
     ++ optionals pkgs.stdenv.isDarwin (with pkgs.darwin.apple_sdk.frameworks; [

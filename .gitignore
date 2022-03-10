@@ -33,5 +33,5 @@ bagheera-*.tar
 
 .nix*
 
-# language server files
-.elixir_ls
+# env
+.envrc
